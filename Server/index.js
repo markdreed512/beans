@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql')
 const app = express();
+// const axios = require('axios');
 // import db from './model/model'
 const db = require('./model/model')
 // const connection = mysql.createConnection({
@@ -28,17 +29,22 @@ app.get('/', (req, res) => {
 //in MVC, this should be a method e.g."getAllFoods()" that is imported from the Model
 //The model should never talk directly to the view
 app.get('/foods', (req, res) => {
-    db.getAllFoods().then((results)=>{
-        res.json(results)
-    })
+    db.getAllFoods()
+        .then((results)=>{
+            res.json(results)
+        })
 })
-app.post('/foods', (req,res) => {
-    console.log("post request...... ", res.body.data)
-    res.json(res.body)
-    // db.postFoodItem().then((results)=>{
-    //     console.log("result of Post food item: ",results)
-    // })
+app.post('/foods/:food', (req,res) => {
+    console.log("post request...... ", req.params.food)
+    // res.json(res.body)
+   
 })
 app.listen(4000, () => {
     console.log("Beans and Rice listening on port 4000!!")
 })
+// function axPost(){
+//     axios.post('/foods',{input: 'here\'s my input'})
+//         .then(response => console.log("response: ", response))
+//         .catch(err => console.log("Post error!! "))
+// }
+// axPost();
